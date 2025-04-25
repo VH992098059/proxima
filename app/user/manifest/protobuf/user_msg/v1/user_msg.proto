@@ -1,0 +1,14 @@
+syntax="proto3";
+package account_msg.v1;
+option go_package="proxima/app/user/api/account_msg/v1";
+import "pbentity/users.proto";
+service account_msg{
+  rpc UserInfo(UserInfoReq) returns (UserInfoRes) {}
+}
+message UserInfoReq {
+  string token=1;
+}
+
+message UserInfoRes {
+  pbentity.Users user = 1;
+}

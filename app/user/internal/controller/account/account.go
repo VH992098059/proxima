@@ -1,0 +1,44 @@
+package account
+
+import (
+	"context"
+	v1 "proxima/app/user/api/account/v1"
+	"proxima/app/user/api/pbentity"
+	"proxima/app/user/internal/logic/account"
+
+	"github.com/gogf/gf/contrib/rpc/grpcx/v2"
+)
+
+type Controller struct {
+	v1.UnimplementedAccountServer
+}
+
+func Register(s *grpcx.GrpcServer) {
+	v1.RegisterAccountServer(s.Server, &Controller{})
+}
+
+func (*Controller) UserRegister(ctx context.Context, req *v1.UserRegisterReq) (res *v1.UserRegisterRes, err error) {
+
+	id, err := account.Register(ctx, &pbentity.Users{
+		Username: req.Username,
+		Password: req.Password,
+		Email:    req.Email,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &v1.UserRegisterRes{
+		Id: int32(id),
+	}, nil
+}
+
+func (*Controller) UserLogin(ctx context.Context, req *v1.UserLoginReq) (res *v1.UserLoginRes, err error) {
+	token, err := account.Login(ctx, req.Username, req.Password)
+
+	if err != nil {
+		return nil, err
+	}
+	return &v1.UserLoginRes{
+		Token: token,
+	}, nil
+}

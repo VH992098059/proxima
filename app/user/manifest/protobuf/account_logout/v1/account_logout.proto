@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package account_logout.v1;
+
+option go_package = "proxima/app/user/api/account_logout/v1";
+service account_logout{
+  rpc Logout(LogoutUserReq)returns(LogoutUserRes){}
+}
+message LogoutUserReq{
+  string token=1;
+}
+message LogoutUserRes{
+  bool logout=1;
+}

@@ -1,0 +1,14 @@
+
+# CLI tool, only in development environment.
+# https://goframe.org/pages/viewpage.action?pageId=3673173
+gfcli:
+  docker:
+    build: "-a amd64 -s linux -p temp -ew"
+    tagPrefixes:
+      - my.image.pub/my-app
+  gen:
+    dao:
+      - link: "mysql:user:770880520@tcp(116.62.42.164:3306)/user"
+        descriptionTag: true
+    pbentity:
+      - link: "mysql:user:770880520@tcp(116.62.42.164:3306)/user"

@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package account_edit_delete.v1;
+
+option go_package = "proxima/app/user/api/account_edit_delete/v1";
+
+service account_edit_delete{
+  rpc UpdateUser(UpdateUserReq)returns(UpdateUserRes){}
+  rpc DeleteUser(DeleteUserReq)returns(DeleteUserRes){}
+}
+message UpdateUserReq{
+  string Username=1;
+  string Password=2;
+  string Email=3;
+}
+message UpdateUserRes{
+  int32 isOK=1;
+}
+message DeleteUserReq{
+  int32 id=1;
+}
+message DeleteUserRes{
+  int32 isDel=1;
+}

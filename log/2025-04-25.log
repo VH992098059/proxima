@@ -1,0 +1,2 @@
+2025-04-25T11:18:37.313+08:00 [DEBU] etcd put success with key "/service/default/default/default/latest/10.132.31.59:8000,192.168.159.1:8000,192.168.200.1:8000,192.168.14.1:8000,172.23.160.1:8000,172.27.224.1:8000", value "{"insecure":true,"protocol":"http"}", lease "7587886332389186820"
+2025-04-25T11:21:59.343+08:00 [DEBU] etcd put success with key "/service/default/default/default/latest/10.132.31.59:8000,192.168.159.1:8000,192.168.200.1:8000,192.168.14.1:8000,172.23.160.1:8000,172.27.224.1:8000", value "{"insecure":true,"protocol":"http"}", lease "7587886332389186830"

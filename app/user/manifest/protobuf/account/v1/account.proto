@@ -1,0 +1,25 @@
+syntax="proto3";
+package account.v1;
+option go_package="proxima/app/user/api/account/v1";
+service Account{
+  rpc UserRegister(UserRegisterReq) returns (UserRegisterRes){};
+  rpc UserLogin(UserLoginReq) returns (UserLoginRes) {}
+}
+
+message UserRegisterReq{
+  string username=1;
+  string password=2;
+  string email=3;
+}
+message UserRegisterRes{
+  int32 id=1;
+}
+
+message UserLoginReq {
+  string username = 1; // v:required|min-length:2
+  string password = 2; // v:required|min-length:6
+}
+message UserLoginRes {
+  string token = 1;
+}
+

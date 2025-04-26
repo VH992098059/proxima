@@ -14,7 +14,7 @@ type RegisterReq struct {
 	g.Meta   `path:"users/register" method:"post" sm:"注册"`
 	Username string `json:"username" v:"required|length:3,12"`
 	Password string `json:"password" v:"required|length:6,16"`
-	Email    string `json:"email" v:"required|length:6,16"`
+	Email    string `json:"email" v:"required|length:6,30"`
 }
 type RegisterRes struct {
 	Id int `json:"id"`

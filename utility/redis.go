@@ -12,9 +12,9 @@ import (
 
 var (
 	config = gredis.Config{
-		Address: "127.0.0.1:16379",
+		Address: "127.0.0.1:6379",
 		Db:      1,
-		Pass:    "password",
+		Pass:    "123456",
 	}
 	ctxRedis = gctx.New()
 	group    = "cache"
@@ -31,15 +31,20 @@ func init() {
 
 // SetJWT 将 token 存入 Redis 白名单，expiration 与 JWT 自身过期时间保持一致
 func SetJWT(ctx context.Context, key, token string, expiration time.Duration) error {
-	err := g.Redis().SetEX(ctx, key, token, int64(expiration))
+	err := g.Redis().SetEX(ctx, "user:"+key, token, int64(expiration))
 	if err != nil {
-		log.Println("报错")
+		log.Println("创建jwt报错")
 	}
+	err = DeleteBlackJWT(ctx, key)
+	if err != nil {
+		log.Println("删除jwt黑名单报错")
+	}
+
 	return err
 }
 
 // CheckJWT 检查 token 是否在白名单中
-/*func CheckJWT(ctx context.Context, token string) (bool, error) {
+func CheckJWT(ctx context.Context, key, token string) (bool, error) {
 	value, err := g.Redis().Get(ctx, key)
 	if err != nil {
 		// key 不存在或其他错误
@@ -47,13 +52,41 @@ func SetJWT(ctx context.Context, key, token string, expiration time.Duration) er
 	}
 	return value.String() == token, nil
 }
-*/
+
+// AddBlackTokens 将token标记为黑名单
+func AddBlackTokens(ctx context.Context, userKey, token string) error {
+	err := g.Redis().SetEX(ctx, "jwt_blacklist:"+userKey, token, 3600*24)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// CheckBlackTokens 检查JWT是否在黑名单
+func CheckBlackTokens(ctx context.Context, userKey, token string) (bool, error) {
+	value, err := g.Redis().Get(ctx, "jwt_blacklist:"+userKey)
+	if err != nil {
+		return false, err
+	}
+	log.Println("redis黑名单：", value.String())
+	return value.String() == token, nil
+}
+
 // DeleteJWT 从白名单移除 token
-func DeleteJWT(ctx context.Context, key, token string) error {
+func DeleteJWT(ctx context.Context, key string) error {
 	del, err := g.Redis().Del(ctx, key)
 	if err != nil {
 		return err
 	}
 	log.Println(del)
+	return nil
+}
+
+// DeleteBlackJWT 从黑名单删除JWT
+func DeleteBlackJWT(ctx context.Context, userKey string) error {
+	_, err := g.Redis().Del(ctx, "jwt_blacklist:"+userKey)
+	if err != nil {
+		return err
+	}
 	return nil
 }

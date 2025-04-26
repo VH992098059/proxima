@@ -23,7 +23,7 @@ func UpdateUser(ctx context.Context, in *pbentity.Users) (isOk int, err error) {
 	return 1, nil
 }
 func DeleteUser(ctx context.Context, in *pbentity.Users) (isDel int, err error) {
-	_, err = dao.Users.Ctx(ctx).Where("id", in.Id).Delete()
+	_, err = dao.Users.Ctx(ctx).Where("id", in.Id).Unscoped().Delete()
 	if err != nil {
 		return -1, err
 	}

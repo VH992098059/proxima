@@ -8,6 +8,7 @@ service account_logout{
 }
 message LogoutUserReq{
   string token=1;
+  string userKey=2;
 }
 message LogoutUserRes{
   bool logout=1;

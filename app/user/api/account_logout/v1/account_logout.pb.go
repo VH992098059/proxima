@@ -25,6 +25,7 @@ const (
 type LogoutUserReq struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Token         string                 `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	UserKey       string                 `protobuf:"bytes,2,opt,name=userKey,proto3" json:"userKey,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -62,6 +63,13 @@ func (*LogoutUserReq) Descriptor() ([]byte, []int) {
 func (x *LogoutUserReq) GetToken() string {
 	if x != nil {
 		return x.Token
+	}
+	return ""
+}
+
+func (x *LogoutUserReq) GetUserKey() string {
+	if x != nil {
+		return x.UserKey
 	}
 	return ""
 }
@@ -114,9 +122,10 @@ var File_account_logout_v1_account_logout_proto protoreflect.FileDescriptor
 
 const file_account_logout_v1_account_logout_proto_rawDesc = "" +
 	"\n" +
-	"&account_logout/v1/account_logout.proto\x12\x11account_logout.v1\"%\n" +
+	"&account_logout/v1/account_logout.proto\x12\x11account_logout.v1\"?\n" +
 	"\rLogoutUserReq\x12\x14\n" +
-	"\x05token\x18\x01 \x01(\tR\x05token\"'\n" +
+	"\x05token\x18\x01 \x01(\tR\x05token\x12\x18\n" +
+	"\auserKey\x18\x02 \x01(\tR\auserKey\"'\n" +
 	"\rLogoutUserRes\x12\x16\n" +
 	"\x06logout\x18\x01 \x01(\bR\x06logout2`\n" +
 	"\x0eaccount_logout\x12N\n" +

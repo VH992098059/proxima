@@ -12,6 +12,7 @@ func (c *ControllerV1) Login(ctx context.Context, req *v1.LoginReq) (res *v1.Log
 		Username: req.Username,
 		Password: req.Password,
 	})
+
 	if err != nil {
 		return nil, err
 	}

@@ -1,0 +1,75 @@
+.listening-exercise-card {
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  min-height: 100vh;
+}
+
+.exercise-content {
+  margin: 20px 0;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+}
+
+.sentence {
+  font-size: 18px;
+  color: #1a1a1a;
+  margin-bottom: 12px;
+}
+
+.translation {
+  font-size: 16px;
+  color: #666;
+  font-style: italic;
+}
+
+.exercise-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.progress-container {
+  width: 100%;
+  margin: 12px 0;
+}
+
+.score-display {
+  margin-top: 8px;
+  text-align: center;
+}
+
+.score-display .ant-tag {
+  font-size: 16px;
+  padding: 4px 12px;
+}
+
+.next-btn {
+  margin-left: auto;
+}
+
+/* 响应式布局 */
+@media (max-width: 768px) {
+
+  .exercise-content {
+    padding: 16px;
+  }
+
+  .sentence {
+    font-size: 16px;
+  }
+
+  .translation {
+    font-size: 14px;
+  }
+
+  .exercise-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .next-btn {
+    margin-left: 0;
+  }
+}

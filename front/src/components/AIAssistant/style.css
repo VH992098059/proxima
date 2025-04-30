@@ -1,0 +1,91 @@
+
+.ai-card {
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  height: 100vh;
+}
+
+.stats-container {
+  margin-bottom: 24px;
+  padding: 16px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.stats-container .ant-statistic {
+  text-align: center;
+}
+
+.stats-container .ant-statistic-title {
+  color: #666;
+  font-size: 14px;
+}
+
+.stats-container .ant-statistic-content {
+  color: #1890ff;
+  font-size: 24px;
+}
+
+.message-container {
+  margin: 20px 0;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  overflow-y: auto;
+}
+
+.message {
+  margin: 8px 0;
+  padding: 8px 12px;
+  border-radius: 8px;
+  max-width: 80%;
+}
+
+.message.user {
+  margin-left: auto;
+  background-color: #1890ff;
+  color: white;
+}
+
+.message.ai {
+  margin-right: auto;
+  background-color: white;
+  border: 1px solid #e8e8e8;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.input-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  
+}
+
+.input-container .ant-input {
+  border-radius: 8px;
+}
+
+.input-container .ant-btn {
+  border-radius: 8px;
+  /* margin-top: 10px; */
+  display: flex;
+  align-items: center;
+}
+
+/* 响应式布局 */
+@media (max-width: 768px) {
+
+
+  .message {
+    max-width: 90%;
+    font-size: 14px;
+  }
+
+  
+
+}

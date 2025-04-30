@@ -1,0 +1,112 @@
+.home-container {
+  padding: 20px;
+  margin: 0 auto;
+  position: relative;
+  padding-bottom: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.header-section {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.subtitle {
+  color: #666;
+  margin-top: 8px;
+}
+
+.stats-section {
+  margin-bottom: 24px;
+}
+
+.stats-section .ant-card {
+  text-align: center;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.progress-card {
+  margin-bottom: 32px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.progress-text {
+  color: #666;
+  margin-top: 8px;
+  text-align: center;
+}
+
+.action-section {
+  text-align: center;
+  margin: 10px 0;
+}
+
+.start-button {
+  height: 48px;
+  padding: 0 30px;
+  font-size: 18px;
+  border-radius: 24px;
+}
+
+.navigation-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  padding: 8px 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.nav-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4px 12px;
+  border: none;
+  background: transparent;
+  transition: all 0.3s;
+}
+
+.nav-button span {
+  margin-top: 4px;
+  font-size: 12px;
+}
+
+.nav-button.active {
+  color: #1890ff;
+  position: relative;
+}
+
+.nav-button.active::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 2px;
+  background-color: #1890ff;
+  border-radius: 1px;
+}
+
+@media (max-width: 576px) {
+
+  .stats-section .ant-card {
+    margin-bottom: 16px;
+  }
+
+  .start-button {
+    width: 100%;
+  }
+}

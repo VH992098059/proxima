@@ -1,0 +1,32 @@
+/* 页面进入时的初始状态 */
+/* 从右侧100%位置开始，完全透明 */
+.page-enter {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+/* 页面进入动画的激活状态 */
+/* 移动到原始位置(0)，透明度变为1，设置过渡动画效果 */
+/* transition: 设置透明度和位移的过渡动画，持续400ms */
+/* ease-out: 动画结束时减速，cubic-bezier: 自定义贝塞尔曲线实现更平滑的动画 */
+.page-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 400ms ease-out, transform 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 页面退出时的初始状态 */
+/* 初始位置，完全不透明 */
+.page-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* 页面退出动画的激活状态 */
+/* 向左移动-100%，完全透明，设置过渡动画效果 */
+/* ease-in: 动画开始时加速，配合贝塞尔曲线提供流畅的退出效果 */
+.page-exit-active {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: opacity 400ms ease-in, transform 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}

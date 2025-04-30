@@ -1,0 +1,39 @@
+.word-learning-container {
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-height: 95vh;
+  /* height: 100vh; */
+}
+
+.progress-bar {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.progress-text {
+  text-align: center;
+  margin-top: 8px;
+  color: #666;
+  font-size: 14px;
+}
+
+/* 响应式布局 */
+@media (max-width: 768px) {
+  .word-learning-container {
+    padding: 16px;
+  }
+
+  .progress-bar {
+    padding: 16px;
+    border-radius: 6px;
+  }
+
+  .progress-text {
+    font-size: 12px;
+  }
+}

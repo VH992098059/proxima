@@ -2,20 +2,15 @@ package user_logout
 
 import (
 	"context"
-	"github.com/gogf/gf/v2/frame/g"
 	"log"
-	account "proxima/app/user/api/account_logout/v1"
-	"strings"
-
 	"proxima/app/gateway/api/user_logout/v1"
+	account "proxima/app/user/api/account_logout/v1"
+	"proxima/utility"
 )
 
+// Logout 用户退出登录控制器
 func (c *ControllerV1) Logout(ctx context.Context, req *v1.LogoutReq) (res *v1.LogoutRes, err error) {
-	// 使用从 Header 绑定的 req.Token，并移除 "Bearer " 前缀
-	token := g.RequestFromCtx(ctx).Request.Header.Get("Authorization")
-	if strings.HasPrefix(token, "Bearer ") {
-		token = strings.TrimPrefix(token, "Bearer ")
-	}
+	token := utility.GetJWT(ctx)
 	log.Println("需要退出登录token:", token)
 	logout, err := c.AccountLogout.Logout(ctx, &account.LogoutUserReq{Token: token})
 	if err != nil {

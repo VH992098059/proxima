@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package user_study_record.v1;
+
+option go_package = "proxima/app/word/api/words/v1";
+import "google/protobuf/timestamp.proto";
+
+service UserStudyRecord{
+  rpc insert_record(insertReq)returns(insertRes);
+  rpc update_record(updateReq)returns(updateRes);
+  rpc search_record(searchReq)returns(searchRes);
+  rpc delete_record(deleteReq)returns(deleteRes);
+}
+message insertReq{
+  string word_id=1;
+  google.protobuf.Timestamp study_time=2;
+  uint32 mastery_level=3;
+  uint32 review_count=4;
+  google.protobuf.Timestamp last_review_time=5;
+  bool is_favorite=6;
+  uint32 word_level_id=7;
+  string token=8;//v:required
+}
+message insertRes{
+  string msg=1;
+}
+
+message updateReq{
+  uint32 word_id=1;
+  google.protobuf.Timestamp study_time=2;
+  uint32 mastery_level=3;
+  uint32 review_count=4;
+  google.protobuf.Timestamp last_review_time=5;
+}
+message updateRes{
+
+}
+
+message searchReq{
+
+}
+message searchRes{
+
+}
+
+message deleteReq{
+
+}
+message deleteRes{
+
+}

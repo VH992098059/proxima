@@ -2,24 +2,16 @@ package user_msg
 
 import (
 	"context"
-	"github.com/golang-jwt/jwt/v5"
 	"log"
 	"proxima/app/user/internal/dao"
 	"proxima/app/user/internal/model/entity"
 	"proxima/utility"
 )
 
-// jwtClaims 定义自定义 JWT 载荷结构
-type jwtClaims struct {
-	Id       uint
-	Username string
-	jwt.RegisteredClaims
-}
-
 func Info(ctx context.Context, token string) (user *entity.Users, err error) {
 	log.Println("Parsing JWT:", token)
 	// 解析自定义 Claims
-	claims := &jwtClaims{}
+	claims := &utility.JwtClaims{}
 	parsedToken, err := utility.Decryption(token, claims)
 	if err != nil {
 		return nil, err

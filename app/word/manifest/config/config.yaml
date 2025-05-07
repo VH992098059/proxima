@@ -90,9 +90,10 @@ logger:
   # writerColorEnable:     false                 # 日志文件是否带上颜色。默认false，表示不带颜色
 
 # 配置数据库
-# database:
-#   default:
-#   - link: "mysql:root:12345678@tcp(127.0.0.1:3306)/test"
+database:
+  default:
+  - link: "mysql:word:770880520@tcp(116.62.42.164:3306)/word"
+    debug: true
 # database:
 #   分组名称:
 #     host:                  "地址"
@@ -126,7 +127,6 @@ logger:
 grpc:
   name:             "word"
   address:          ":32002"
-database:
-  default:
-    link: "mysql:word:770880520@tcp(116.62.42.164:3306)/word"
-    debug: true
+
+mongo:
+  address: "mongodb://127.0.0.1:27017"

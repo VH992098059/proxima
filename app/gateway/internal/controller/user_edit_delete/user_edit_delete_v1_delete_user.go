@@ -7,6 +7,7 @@ import (
 	"proxima/app/gateway/api/user_edit_delete/v1"
 )
 
+// DeleteUser 用户注销控制器
 func (c *ControllerV1) DeleteUser(ctx context.Context, req *v1.DeleteUserReq) (res *v1.DeleteUserRes, err error) {
 	user, err := c.AccountEditDelete.DeleteUser(ctx, &account.DeleteUserReq{Id: int32(req.Id)})
 	if err != nil {

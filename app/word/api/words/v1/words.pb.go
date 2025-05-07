@@ -129,7 +129,9 @@ func (x *CreateRes) GetId() uint32 {
 
 type GetReq struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            uint32                 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty" v:"required"` // v:required
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty" v:"required"`        // v:required
+	Start         uint32                 `protobuf:"varint,2,opt,name=start,proto3" json:"start,omitempty" v:"required"` // v:required
+	Limit         uint32                 `protobuf:"varint,3,opt,name=limit,proto3" json:"limit,omitempty" v:"required"` // v:required
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -164,16 +166,30 @@ func (*GetReq) Descriptor() ([]byte, []int) {
 	return file_words_v1_words_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *GetReq) GetId() uint32 {
+func (x *GetReq) GetId() string {
 	if x != nil {
 		return x.Id
+	}
+	return ""
+}
+
+func (x *GetReq) GetStart() uint32 {
+	if x != nil {
+		return x.Start
+	}
+	return 0
+}
+
+func (x *GetReq) GetLimit() uint32 {
+	if x != nil {
+		return x.Limit
 	}
 	return 0
 }
 
 type GetRes struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Words         *pbentity.Words        `protobuf:"bytes,1,opt,name=words,proto3" json:"words,omitempty"`
+	Words         []*pbentity.Words      `protobuf:"bytes,1,rep,name=words,proto3" json:"words,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -208,7 +224,7 @@ func (*GetRes) Descriptor() ([]byte, []int) {
 	return file_words_v1_words_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *GetRes) GetWords() *pbentity.Words {
+func (x *GetRes) GetWords() []*pbentity.Words {
 	if x != nil {
 		return x.Words
 	}
@@ -227,11 +243,13 @@ const file_words_v1_words_proto_rawDesc = "" +
 	"definition\x18\x03 \x01(\tR\n" +
 	"definition\"\x1b\n" +
 	"\tCreateRes\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\rR\x02id\"\x18\n" +
+	"\x02id\x18\x01 \x01(\rR\x02id\"D\n" +
 	"\x06GetReq\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\rR\x02id\"/\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x14\n" +
+	"\x05start\x18\x02 \x01(\rR\x05start\x12\x14\n" +
+	"\x05limit\x18\x03 \x01(\rR\x05limit\"/\n" +
 	"\x06GetRes\x12%\n" +
-	"\x05words\x18\x01 \x01(\v2\x0f.pbentity.WordsR\x05words2j\n" +
+	"\x05words\x18\x01 \x03(\v2\x0f.pbentity.WordsR\x05words2j\n" +
 	"\x05Words\x124\n" +
 	"\x06Create\x12\x13.words.v1.CreateReq\x1a\x13.words.v1.CreateRes\"\x00\x12+\n" +
 	"\x03Get\x12\x10.words.v1.GetReq\x1a\x10.words.v1.GetRes\"\x00B\x1fZ\x1dproxima/app/word/api/words/v1b\x06proto3"

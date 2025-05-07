@@ -7,6 +7,7 @@ import (
 	"proxima/app/gateway/api/user_edit_delete/v1"
 )
 
+// UpdateUser 用户编辑控制器
 func (c *ControllerV1) UpdateUser(ctx context.Context, req *v1.UpdateUserReq) (res *v1.UpdateUserRes, err error) {
 	user, err := c.AccountEditDelete.UpdateUser(ctx, &account.UpdateUserReq{
 		Username: req.Username,

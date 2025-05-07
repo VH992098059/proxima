@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/gogf/gf/contrib/rpc/grpcx/v2"
 	"google.golang.org/grpc"
+	"proxima/app/word/internal/controller/user_study_record"
 	"proxima/app/word/internal/controller/words"
 
 	"github.com/gogf/gf/v2/os/gcmd"
@@ -21,6 +22,7 @@ var (
 			}...)
 			s := grpcx.Server.New(c)
 			words.Register(s)
+			user_study_record.Register(s)
 			s.Run()
 			return nil
 		},

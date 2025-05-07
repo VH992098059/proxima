@@ -134,7 +134,7 @@ const AIAssistant: React.FC = () => {
             icon={<SendOutlined />}
             onClick={handleSend}
             loading={loading}
-            style={{ borderRadius: '50%', width: "50px", height: "50px" }}
+            style={{ borderRadius: '50%', width: "40px", height: "40px" }}
           >
           </Button>
         </div>

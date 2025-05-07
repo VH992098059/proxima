@@ -2,12 +2,13 @@ package words
 
 import (
 	"context"
-	"google.golang.org/protobuf/types/known/timestamppb"
 	"proxima/app/word/api/pbentity"
 	v1 "proxima/app/word/api/words/v1"
 	"proxima/app/word/internal/logic/words"
 
 	"github.com/gogf/gf/contrib/rpc/grpcx/v2"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 type Controller struct {
@@ -19,30 +20,28 @@ func Register(s *grpcx.GrpcServer) {
 }
 
 func (*Controller) Create(ctx context.Context, req *v1.CreateReq) (res *v1.CreateRes, err error) {
-	id, err := words.Create(ctx)
-	if err != nil {
-		return nil, err
-	}
-	return &v1.CreateRes{Id: uint32(id)}, nil
+
+	return nil, gerror.NewCode(gcode.CodeNotImplemented)
 }
 
+// Get 获取单词
 func (*Controller) Get(ctx context.Context, req *v1.GetReq) (res *v1.GetRes, err error) {
-	data, err := words.Get(ctx)
-
+	wordsList, err := words.Get(ctx, int(req.Start), int(req.Limit))
 	if err != nil {
 		return nil, err
 	}
+	pbWords := make([]*pbentity.Words, len(wordsList))
+	for i, word := range wordsList {
+		pbWords[i] = &pbentity.Words{
+			WordId:        word.WordId,
+			Word:          word.Word,
+			Accent:        word.Accent,
+			MeanCn:        word.MeanCn,
+			Sentence:      word.Sentence,
+			SentenceTrans: word.SentenceTrans,
+		}
+	}
 	return &v1.GetRes{
-		Words: &pbentity.Words{
-			Id:                 uint32(data.Id),
-			Uid:                uint32(data.Uid),
-			Word:               data.Word,
-			Definition:         data.Definition,
-			ExampleSentence:    data.ExampleSentence,
-			ChineseTranslation: data.ChineseTranslation,
-			Pronunciation:      data.Pronunciation,
-			CreatedAt:          timestamppb.New(data.CreatedAt.Time),
-			UpdatedAt:          timestamppb.New(data.CreatedAt.Time),
-		},
+		Words: pbWords,
 	}, nil
 }

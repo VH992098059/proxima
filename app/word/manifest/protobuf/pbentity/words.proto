@@ -11,13 +11,22 @@ option go_package = "proxima/app/word/api/pbentity";
 import "google/protobuf/timestamp.proto";
 
 message Words {
-    uint32                    Id                 = 1; //   
-    uint32                    Uid                = 2; //   
-    string                    Word               = 3; //   
-    string                    Definition         = 4; //   
-    string                    ExampleSentence    = 5; //   
-    string                    ChineseTranslation = 6; //   
-    string                    Pronunciation      = 7; //   
-    google.protobuf.Timestamp CreatedAt          = 8; //   
-    google.protobuf.Timestamp UpdatedAt          = 9; //   
+    string                    WordId             = 1;  // 主键ID
+    string                    Accent         = 2;  // 单词音标              
+    string                    Cloze          = 3;  // 填空格式              
+    string                    ClozeData      = 4;  // 填空元数据(JSON格式)  
+    string                    DeformationImg = 5;  // 变形图片路径          
+    string                    ImageFile      = 6;  // 主图片路径            
+    string                    MeanCn         = 7;  // 中文释义              
+    string                    MeanEn         = 8;  // 英文释义              
+    string                    Options        = 9;  // 选项列表(JSON数组)    
+    string                    Sentence       = 10; // 例句                  
+    string                    SentenceAudio  = 11; // 例句音频路径          
+    string                    SentenceTrans  = 12; // 例句翻译              
+    string                    Word           = 13; // 单词原文              
+    string                    WordAudio      = 14; // 单词音频路径          
+    string                    WordEtyma      = 15; // 词源解析              
+    string                    WordLevelId    = 16; // 单词级别ID            
+    google.protobuf.Timestamp CreatedAt      = 17; // 创建时间              
+    google.protobuf.Timestamp UpdatedAt      = 18; // 更新时间              
 }

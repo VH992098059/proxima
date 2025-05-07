@@ -1,6 +1,7 @@
 package main
 
 import (
+	_ "github.com/gogf/gf/contrib/drivers/mysql/v2"
 	"github.com/gogf/gf/contrib/registry/etcd/v2"
 	"github.com/gogf/gf/contrib/rpc/grpcx/v2"
 	"github.com/gogf/gf/v2/frame/g"
@@ -12,6 +13,7 @@ import (
 )
 
 func main() {
+
 	var ctx = gctx.New()
 	conf, err := g.Cfg("etcd").Get(ctx, "etcd.address")
 	if err != nil {

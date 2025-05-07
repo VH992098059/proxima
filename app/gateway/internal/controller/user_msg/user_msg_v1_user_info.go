@@ -2,20 +2,15 @@ package user_msg
 
 import (
 	"context"
-	"github.com/gogf/gf/v2/frame/g"
 	"log"
-	account "proxima/app/user/api/user_msg/v1"
-	"strings"
-
 	v1 "proxima/app/gateway/api/user_msg/v1"
+	account "proxima/app/user/api/user_msg/v1"
+	"proxima/utility"
 )
 
+// UserInfo 用户信息获取控制器
 func (c *ControllerV1) UserInfo(ctx context.Context, req *v1.UserInfoReq) (res *v1.UserInfoRes, err error) {
-	// 使用从 Header 绑定的 req.Token，并移除 "Bearer " 前缀
-	token := g.RequestFromCtx(ctx).Request.Header.Get("Authorization")
-	if strings.HasPrefix(token, "Bearer ") {
-		token = strings.TrimPrefix(token, "Bearer ")
-	}
+	token := utility.GetJWT(ctx)
 	log.Println("Forwarding token:", token)
 	info, err := c.UserMsgClient.UserInfo(ctx, &account.UserInfoReq{Token: token})
 	if err != nil {

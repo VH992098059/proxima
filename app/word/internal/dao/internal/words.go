@@ -20,28 +20,46 @@ type WordsDao struct {
 
 // WordsColumns defines and stores column names for table words.
 type WordsColumns struct {
-	Id                 string //
-	Uid                string //
-	Word               string //
-	Definition         string //
-	ExampleSentence    string //
-	ChineseTranslation string //
-	Pronunciation      string //
-	CreatedAt          string //
-	UpdatedAt          string //
+	Id             string // 主键ID
+	Accent         string // 单词音标
+	Cloze          string // 填空格式
+	ClozeData      string // 填空元数据(JSON格式)
+	DeformationImg string // 变形图片路径
+	ImageFile      string // 主图片路径
+	MeanCn         string // 中文释义
+	MeanEn         string // 英文释义
+	Options        string // 选项列表(JSON数组)
+	Sentence       string // 例句
+	SentenceAudio  string // 例句音频路径
+	SentenceTrans  string // 例句翻译
+	Word           string // 单词原文
+	WordAudio      string // 单词音频路径
+	WordEtyma      string // 词源解析
+	WordLevelId    string // 单词级别ID
+	CreatedAt      string // 创建时间
+	UpdatedAt      string // 更新时间
 }
 
 // wordsColumns holds the columns for table words.
 var wordsColumns = WordsColumns{
-	Id:                 "id",
-	Uid:                "uid",
-	Word:               "word",
-	Definition:         "definition",
-	ExampleSentence:    "example_sentence",
-	ChineseTranslation: "chinese_translation",
-	Pronunciation:      "pronunciation",
-	CreatedAt:          "created_at",
-	UpdatedAt:          "updated_at",
+	Id:             "id",
+	Accent:         "accent",
+	Cloze:          "cloze",
+	ClozeData:      "cloze_data",
+	DeformationImg: "deformation_img",
+	ImageFile:      "image_file",
+	MeanCn:         "mean_cn",
+	MeanEn:         "mean_en",
+	Options:        "options",
+	Sentence:       "sentence",
+	SentenceAudio:  "sentence_audio",
+	SentenceTrans:  "sentence_trans",
+	Word:           "word",
+	WordAudio:      "word_audio",
+	WordEtyma:      "word_etyma",
+	WordLevelId:    "word_level_id",
+	CreatedAt:      "created_at",
+	UpdatedAt:      "updated_at",
 }
 
 // NewWordsDao creates and returns a new DAO object for table data access.

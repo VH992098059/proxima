@@ -16,9 +16,11 @@ message CreateRes {
 }
 
 message GetReq {
-  uint32 id = 1; // v:required
+  string id = 1; // v:required
+  uint32 start=2;// v:required
+  uint32 limit=3;// v:required
 }
 
 message GetRes {
-  pbentity.Words words = 1;
+  repeated pbentity.Words words = 1;
 }

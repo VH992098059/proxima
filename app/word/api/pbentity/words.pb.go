@@ -28,18 +28,27 @@ const (
 )
 
 type Words struct {
-	state              protoimpl.MessageState `protogen:"open.v1"`
-	Id                 uint32                 `protobuf:"varint,1,opt,name=Id,proto3" json:"Id,omitempty"`                                //
-	Uid                uint32                 `protobuf:"varint,2,opt,name=Uid,proto3" json:"Uid,omitempty"`                              //
-	Word               string                 `protobuf:"bytes,3,opt,name=Word,proto3" json:"Word,omitempty"`                             //
-	Definition         string                 `protobuf:"bytes,4,opt,name=Definition,proto3" json:"Definition,omitempty"`                 //
-	ExampleSentence    string                 `protobuf:"bytes,5,opt,name=ExampleSentence,proto3" json:"ExampleSentence,omitempty"`       //
-	ChineseTranslation string                 `protobuf:"bytes,6,opt,name=ChineseTranslation,proto3" json:"ChineseTranslation,omitempty"` //
-	Pronunciation      string                 `protobuf:"bytes,7,opt,name=Pronunciation,proto3" json:"Pronunciation,omitempty"`           //
-	CreatedAt          *timestamppb.Timestamp `protobuf:"bytes,8,opt,name=CreatedAt,proto3" json:"CreatedAt,omitempty"`                   //
-	UpdatedAt          *timestamppb.Timestamp `protobuf:"bytes,9,opt,name=UpdatedAt,proto3" json:"UpdatedAt,omitempty"`                   //
-	unknownFields      protoimpl.UnknownFields
-	sizeCache          protoimpl.SizeCache
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	WordId         string                 `protobuf:"bytes,1,opt,name=WordId,proto3" json:"WordId,omitempty" dc:"主键ID"`                   // 主键ID
+	Accent         string                 `protobuf:"bytes,2,opt,name=Accent,proto3" json:"Accent,omitempty" dc:"单词音标"`                   // 单词音标
+	Cloze          string                 `protobuf:"bytes,3,opt,name=Cloze,proto3" json:"Cloze,omitempty" dc:"填空格式"`                     // 填空格式
+	ClozeData      string                 `protobuf:"bytes,4,opt,name=ClozeData,proto3" json:"ClozeData,omitempty" dc:"填空元数据(JSON格式)"`    // 填空元数据(JSON格式)
+	DeformationImg string                 `protobuf:"bytes,5,opt,name=DeformationImg,proto3" json:"DeformationImg,omitempty" dc:"变形图片路径"` // 变形图片路径
+	ImageFile      string                 `protobuf:"bytes,6,opt,name=ImageFile,proto3" json:"ImageFile,omitempty" dc:"主图片路径"`            // 主图片路径
+	MeanCn         string                 `protobuf:"bytes,7,opt,name=MeanCn,proto3" json:"MeanCn,omitempty" dc:"中文释义"`                   // 中文释义
+	MeanEn         string                 `protobuf:"bytes,8,opt,name=MeanEn,proto3" json:"MeanEn,omitempty" dc:"英文释义"`                   // 英文释义
+	Options        string                 `protobuf:"bytes,9,opt,name=Options,proto3" json:"Options,omitempty" dc:"选项列表(JSON数组)"`         // 选项列表(JSON数组)
+	Sentence       string                 `protobuf:"bytes,10,opt,name=Sentence,proto3" json:"Sentence,omitempty" dc:"例句"`                // 例句
+	SentenceAudio  string                 `protobuf:"bytes,11,opt,name=SentenceAudio,proto3" json:"SentenceAudio,omitempty" dc:"例句音频路径"`  // 例句音频路径
+	SentenceTrans  string                 `protobuf:"bytes,12,opt,name=SentenceTrans,proto3" json:"SentenceTrans,omitempty" dc:"例句翻译"`    // 例句翻译
+	Word           string                 `protobuf:"bytes,13,opt,name=Word,proto3" json:"Word,omitempty" dc:"单词原文"`                      // 单词原文
+	WordAudio      string                 `protobuf:"bytes,14,opt,name=WordAudio,proto3" json:"WordAudio,omitempty" dc:"单词音频路径"`          // 单词音频路径
+	WordEtyma      string                 `protobuf:"bytes,15,opt,name=WordEtyma,proto3" json:"WordEtyma,omitempty" dc:"词源解析"`            // 词源解析
+	WordLevelId    string                 `protobuf:"bytes,16,opt,name=WordLevelId,proto3" json:"WordLevelId,omitempty" dc:"单词级别ID"`      // 单词级别ID
+	CreatedAt      *timestamppb.Timestamp `protobuf:"bytes,17,opt,name=CreatedAt,proto3" json:"CreatedAt,omitempty" dc:"创建时间"`            // 创建时间
+	UpdatedAt      *timestamppb.Timestamp `protobuf:"bytes,18,opt,name=UpdatedAt,proto3" json:"UpdatedAt,omitempty" dc:"更新时间"`            // 更新时间
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
 }
 
 func (x *Words) Reset() {
@@ -72,18 +81,88 @@ func (*Words) Descriptor() ([]byte, []int) {
 	return file_pbentity_words_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *Words) GetId() uint32 {
+func (x *Words) GetWordId() string {
 	if x != nil {
-		return x.Id
+		return x.WordId
 	}
-	return 0
+	return ""
 }
 
-func (x *Words) GetUid() uint32 {
+func (x *Words) GetAccent() string {
 	if x != nil {
-		return x.Uid
+		return x.Accent
 	}
-	return 0
+	return ""
+}
+
+func (x *Words) GetCloze() string {
+	if x != nil {
+		return x.Cloze
+	}
+	return ""
+}
+
+func (x *Words) GetClozeData() string {
+	if x != nil {
+		return x.ClozeData
+	}
+	return ""
+}
+
+func (x *Words) GetDeformationImg() string {
+	if x != nil {
+		return x.DeformationImg
+	}
+	return ""
+}
+
+func (x *Words) GetImageFile() string {
+	if x != nil {
+		return x.ImageFile
+	}
+	return ""
+}
+
+func (x *Words) GetMeanCn() string {
+	if x != nil {
+		return x.MeanCn
+	}
+	return ""
+}
+
+func (x *Words) GetMeanEn() string {
+	if x != nil {
+		return x.MeanEn
+	}
+	return ""
+}
+
+func (x *Words) GetOptions() string {
+	if x != nil {
+		return x.Options
+	}
+	return ""
+}
+
+func (x *Words) GetSentence() string {
+	if x != nil {
+		return x.Sentence
+	}
+	return ""
+}
+
+func (x *Words) GetSentenceAudio() string {
+	if x != nil {
+		return x.SentenceAudio
+	}
+	return ""
+}
+
+func (x *Words) GetSentenceTrans() string {
+	if x != nil {
+		return x.SentenceTrans
+	}
+	return ""
 }
 
 func (x *Words) GetWord() string {
@@ -93,30 +172,23 @@ func (x *Words) GetWord() string {
 	return ""
 }
 
-func (x *Words) GetDefinition() string {
+func (x *Words) GetWordAudio() string {
 	if x != nil {
-		return x.Definition
+		return x.WordAudio
 	}
 	return ""
 }
 
-func (x *Words) GetExampleSentence() string {
+func (x *Words) GetWordEtyma() string {
 	if x != nil {
-		return x.ExampleSentence
+		return x.WordEtyma
 	}
 	return ""
 }
 
-func (x *Words) GetChineseTranslation() string {
+func (x *Words) GetWordLevelId() string {
 	if x != nil {
-		return x.ChineseTranslation
-	}
-	return ""
-}
-
-func (x *Words) GetPronunciation() string {
-	if x != nil {
-		return x.Pronunciation
+		return x.WordLevelId
 	}
 	return ""
 }
@@ -139,19 +211,27 @@ var File_pbentity_words_proto protoreflect.FileDescriptor
 
 const file_pbentity_words_proto_rawDesc = "" +
 	"\n" +
-	"\x14pbentity/words.proto\x12\bpbentity\x1a\x1fgoogle/protobuf/timestamp.proto\"\xd1\x02\n" +
-	"\x05Words\x12\x0e\n" +
-	"\x02Id\x18\x01 \x01(\rR\x02Id\x12\x10\n" +
-	"\x03Uid\x18\x02 \x01(\rR\x03Uid\x12\x12\n" +
-	"\x04Word\x18\x03 \x01(\tR\x04Word\x12\x1e\n" +
-	"\n" +
-	"Definition\x18\x04 \x01(\tR\n" +
-	"Definition\x12(\n" +
-	"\x0fExampleSentence\x18\x05 \x01(\tR\x0fExampleSentence\x12.\n" +
-	"\x12ChineseTranslation\x18\x06 \x01(\tR\x12ChineseTranslation\x12$\n" +
-	"\rPronunciation\x18\a \x01(\tR\rPronunciation\x128\n" +
-	"\tCreatedAt\x18\b \x01(\v2\x1a.google.protobuf.TimestampR\tCreatedAt\x128\n" +
-	"\tUpdatedAt\x18\t \x01(\v2\x1a.google.protobuf.TimestampR\tUpdatedAtB\x1fZ\x1dproxima/app/word/api/pbentityb\x06proto3"
+	"\x14pbentity/words.proto\x12\bpbentity\x1a\x1fgoogle/protobuf/timestamp.proto\"\xc9\x04\n" +
+	"\x05Words\x12\x16\n" +
+	"\x06WordId\x18\x01 \x01(\tR\x06WordId\x12\x16\n" +
+	"\x06Accent\x18\x02 \x01(\tR\x06Accent\x12\x14\n" +
+	"\x05Cloze\x18\x03 \x01(\tR\x05Cloze\x12\x1c\n" +
+	"\tClozeData\x18\x04 \x01(\tR\tClozeData\x12&\n" +
+	"\x0eDeformationImg\x18\x05 \x01(\tR\x0eDeformationImg\x12\x1c\n" +
+	"\tImageFile\x18\x06 \x01(\tR\tImageFile\x12\x16\n" +
+	"\x06MeanCn\x18\a \x01(\tR\x06MeanCn\x12\x16\n" +
+	"\x06MeanEn\x18\b \x01(\tR\x06MeanEn\x12\x18\n" +
+	"\aOptions\x18\t \x01(\tR\aOptions\x12\x1a\n" +
+	"\bSentence\x18\n" +
+	" \x01(\tR\bSentence\x12$\n" +
+	"\rSentenceAudio\x18\v \x01(\tR\rSentenceAudio\x12$\n" +
+	"\rSentenceTrans\x18\f \x01(\tR\rSentenceTrans\x12\x12\n" +
+	"\x04Word\x18\r \x01(\tR\x04Word\x12\x1c\n" +
+	"\tWordAudio\x18\x0e \x01(\tR\tWordAudio\x12\x1c\n" +
+	"\tWordEtyma\x18\x0f \x01(\tR\tWordEtyma\x12 \n" +
+	"\vWordLevelId\x18\x10 \x01(\tR\vWordLevelId\x128\n" +
+	"\tCreatedAt\x18\x11 \x01(\v2\x1a.google.protobuf.TimestampR\tCreatedAt\x128\n" +
+	"\tUpdatedAt\x18\x12 \x01(\v2\x1a.google.protobuf.TimestampR\tUpdatedAtB\x1fZ\x1dproxima/app/word/api/pbentityb\x06proto3"
 
 var (
 	file_pbentity_words_proto_rawDescOnce sync.Once

@@ -7,6 +7,15 @@ interface LearningRecord {
   lastReviewDate: string;
 }
 
+interface KnowledgeItem {
+  id: string;
+  title: string;
+  content: string;
+  category: string;
+  tags: string[];
+  createdAt: string;
+}
+
 interface LearningPlan {
   dailyWordGoal: number;
   recommendedTime: number;
@@ -57,3 +66,48 @@ export const formatLearningPlan = (plan: LearningPlan): string => {
 3. 重点关注领域：${plan.focusAreas.join('、')}
 4. 复习安排：${plan.reviewSchedule}`;
 };
+
+// 获取知识库列表
+export const getKnowledgeList = async (): Promise<KnowledgeItem[]> => {
+  try {
+    // TODO: 从后端获取知识库列表
+    // 模拟数据
+    return [
+      {
+        id: '1',
+        title: '常用英语口语表达',
+        content: '日常生活中最常用的英语口语表达方式和例句...',
+        category: '口语',
+        tags: ['日常对话', '实用表达'],
+        createdAt: new Date().toISOString(),
+      },
+      {
+        id: '2',
+        title: '商务英语写作技巧',
+        content: '职场中常用的商务英语写作格式和范例...',
+        category: '写作',
+        tags: ['商务英语', '职场沟通'],
+        createdAt: new Date().toISOString(),
+      },
+    ];
+  } catch (error) {
+    message.error('获取知识库列表失败');
+    throw error;
+  }
+};
+
+// 搜索知识库
+export const searchKnowledge = async (query: string): Promise<KnowledgeItem[]> => {
+  try {
+    // TODO: 调用后端搜索API
+    const allKnowledge = await getKnowledgeList();
+    return allKnowledge.filter(item =>
+      item.title.toLowerCase().includes(query.toLowerCase()) ||
+      item.content.toLowerCase().includes(query.toLowerCase()) ||
+      item.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase()))
+    );
+  } catch (error) {
+    message.error('搜索知识库失败');
+    throw error;
+  }
+}

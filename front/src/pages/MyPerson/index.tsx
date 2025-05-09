@@ -1,6 +1,6 @@
 import { Avatar, Button, Card, message, Col, Row } from "antd";
 import "./style.css"
-import Icon, { HeartFilled, LogoutOutlined, UserOutlined } from "@ant-design/icons";
+import { HeartFilled, LogoutOutlined, UserOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from 'react-router-dom';
 export const MyPerson: React.FC = () => {
   const navigate = useNavigate();
@@ -49,8 +49,6 @@ export const MyPerson: React.FC = () => {
           </div>
 
         </div>
-
-
       </Card>
 
     </div>

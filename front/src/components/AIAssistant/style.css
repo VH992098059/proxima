@@ -77,15 +77,47 @@
   align-items: center;
 }
 
+.knowledge-base-container {
+  
+  overflow-y: auto;
+}
+
+.search-container {
+  margin-bottom: 16px;
+}
+
+.knowledge-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.knowledge-content {
+  color: #666;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-top: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
 /* 响应式布局 */
 @media (max-width: 768px) {
-
-
   .message {
     max-width: 90%;
     font-size: 14px;
   }
 
-  
+  .knowledge-base-container {
+    padding: 8px;
+  }
 
+  .knowledge-content {
+    font-size: 13px;
+    -webkit-line-clamp: 2;
+  }
 }

@@ -68,8 +68,6 @@ const Profile: React.FC = () => {
     }
   };
 
-  
-
   if (!userInfo) {
     return <div>加载中...</div>;
   }

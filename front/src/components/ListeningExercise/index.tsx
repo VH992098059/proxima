@@ -6,10 +6,30 @@ import useWindowHeight from '../../hooks/useWindowHeight';
 
 const { Title, Paragraph } = Typography;
 
+/**
+ * 听力练习组件属性接口
+ * @interface ListeningExerciseProps
+ * @property {() => void} [onNext] - 切换到下一个练习的回调函数
+ */
 interface ListeningExerciseProps {
   onNext?: () => void;
 }
 
+/**
+ * 听力练习组件
+ * @component
+ * @description 提供英语听力练习功能的组件。
+ * 主要功能包括：
+ * 1. 音频播放：播放标准发音
+ * 2. 语音录制：录制用户跟读音频
+ * 3. 发音评分：对用户发音进行评估和打分
+ * 4. 进度显示：显示录音进度和评分结果
+ * 
+ * @param {ListeningExerciseProps} props - 组件属性
+ * @param {() => void} [props.onNext] - 切换到下一个练习的回调函数
+ * 
+ * @returns {JSX.Element} 返回渲染的听力练习组件
+ */
 const ListeningExercise: React.FC<ListeningExerciseProps> = ({
   onNext,
 }) => {

@@ -3,7 +3,21 @@ import { Progress, message } from 'antd';
 import WordCard from '../../components/WordCard';
 import './style.css';
 
-// 模拟单词数据，实际项目中应该从API获取
+/**
+ * 模拟单词数据结构
+ * @type {Array<{
+ *   id: number,
+ *   word: string,
+ *   phonetic: string,
+ *   meaning: string,
+ *   example: string,
+ *   partOfSpeech: string,
+ *   synonyms: string[],
+ *   antonyms: string[],
+ *   difficulty: 'easy' | 'medium' | 'hard'
+ * }>}
+ * @description 用于模拟从API获取的单词数据，包含单词的基本信息和学习相关属性
+ */
 const mockWords = [
   {
     id: 1,
@@ -40,6 +54,23 @@ const mockWords = [
   },
 ];
 
+/**
+ * 单词学习组件
+ * @component
+ * @description 提供单词学习功能的主要组件。
+ * 
+ * 主要功能：
+ * 1. 单词学习进度追踪：通过Progress组件显示当前学习进度
+ * 2. 单词收藏功能：支持将单词添加到收藏列表或从收藏列表中移除
+ * 3. 学习历史记录：记录总单词数、已学习单词数和最后学习日期
+ * 4. 本地存储：在完成学习后将学习记录保存到localStorage
+ * 
+ * 状态管理：
+ * - currentIndex: 当前学习的单词索引
+ * - favorites: 收藏的单词ID列表
+ * - progress: 学习进度百分比
+ * - learningHistory: 学习历史记录，包含总单词数、已学习数量和最后学习日期
+ */
 const WordLearning: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [favorites, setFavorites] = useState<number[]>([]);

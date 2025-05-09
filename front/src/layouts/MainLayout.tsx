@@ -6,10 +6,26 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import './style.css';
 import '../styles/transitions.css';
 
+/**
+ * MainLayout组件接口定义
+ * @interface MainLayoutProps
+ * @property {React.ReactNode} children - 子组件，用于渲染主要内容区域
+ */
 interface MainLayoutProps {
   children: React.ReactNode;
 }
 
+/**
+ * 主布局组件
+ * @component
+ * @description 应用程序的主要布局组件，包含导航栏和内容区域。
+ * 导航栏包括：首页、AI助手、听力练习和个人中心等功能入口。
+ * 
+ * @param {MainLayoutProps} props - 组件属性
+ * @param {React.ReactNode} props.children - 子组件内容
+ * 
+ * @returns {JSX.Element} 返回渲染的布局组件
+ */
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation();

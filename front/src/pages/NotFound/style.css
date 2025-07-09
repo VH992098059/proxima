@@ -1,0 +1,178 @@
+.not-found-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #f5f5f5;
+  padding: 20px;
+}
+
+.not-found-container .ant-result {
+  background: white;
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  margin-bottom: 30px;
+  animation: fadeInUp 0.8s ease-out;
+  width: 100%;
+  max-width: 600px;
+}
+
+.not-found-container .ant-result-title {
+  color: #1890ff !important;
+  font-size: 72px !important;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.not-found-container .ant-result-subtitle {
+  color: #666 !important;
+  font-size: 18px !important;
+  margin-bottom: 30px;
+}
+
+.not-found-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.not-found-actions .ant-btn {
+  height: 40px;
+  padding: 0 24px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.not-found-actions .ant-btn-primary {
+  background: linear-gradient(135deg, #1890ff, #096dd9);
+  border: none;
+  box-shadow: 0 4px 12px rgba(24, 144, 255, 0.3);
+}
+
+.not-found-actions .ant-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(24, 144, 255, 0.4);
+}
+
+.not-found-actions .ant-btn:not(.ant-btn-primary) {
+  background: white;
+  border: 1px solid #d9d9d9;
+  color: #666;
+}
+
+.not-found-actions .ant-btn:not(.ant-btn-primary):hover {
+  transform: translateY(-2px);
+  border-color: #1890ff;
+  color: #1890ff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.not-found-tips {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+  width: 100%;
+  max-width: 600px;
+}
+
+.not-found-tips h3 {
+  color: #1890ff;
+  margin-bottom: 12px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.not-found-tips p {
+  color: #666;
+  margin-bottom: 16px;
+  font-size: 16px;
+}
+
+.learning-link {
+  color: #1890ff !important;
+  font-weight: 500;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.learning-link:hover {
+  color: #096dd9 !important;
+  transform: translateX(4px);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .not-found-container {
+    padding: 16px;
+  }
+  
+  .not-found-container .ant-result {
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .not-found-container .ant-result-title {
+    font-size: 48px !important;
+  }
+  
+  .not-found-container .ant-result-subtitle {
+    font-size: 16px !important;
+  }
+  
+  .not-found-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .not-found-actions .ant-btn {
+    width: 200px;
+  }
+  
+  .not-found-tips {
+    padding: 20px;
+  }
+  
+  .not-found-tips h3 {
+    font-size: 18px;
+  }
+  
+  .not-found-tips p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .not-found-container .ant-result-title {
+    font-size: 36px !important;
+  }
+  
+  .not-found-container .ant-result-subtitle {
+    font-size: 14px !important;
+  }
+  
+  .not-found-tips h3 {
+    font-size: 16px;
+  }
+  
+  .not-found-tips p {
+    font-size: 13px;
+  }
+}

@@ -1,1 +1,30 @@
-* linguist-language=GO
+# 后端Go代码
+*.go linguist-language=Go
+app/**/*.go linguist-language=Go
+utility/**/*.go linguist-language=Go
+
+# 前端React/TypeScript代码
+front/**/*.ts linguist-language=TypeScript
+front/**/*.tsx linguist-language=TypeScript
+front/**/*.js linguist-language=JavaScript
+front/**/*.jsx linguist-language=JavaScript
+
+# 样式文件
+front/**/*.css linguist-language=CSS
+front/**/*.scss linguist-language=SCSS
+front/**/*.less linguist-language=Less
+
+# 配置文件
+*.json linguist-language=JSON
+*.yaml linguist-language=YAML
+*.yml linguist-language=YAML
+*.toml linguist-language=TOML
+
+# 忽略某些文件不参与语言统计
+*.md linguist-documentation
+*.txt linguist-documentation
+log/* linguist-generated
+image/* linguist-generated
+*.log linguist-generated
+pnpm-lock.yaml linguist-generated
+go.sum linguist-generated

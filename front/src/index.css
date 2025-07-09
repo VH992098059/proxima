@@ -70,3 +70,8 @@ button:focus {
   }
 }
 
+/* Firefox定制 */
+html {
+  scrollbar-color: #339dff rgba(245,245,245,0.9);
+  scrollbar-width: thin;
+}

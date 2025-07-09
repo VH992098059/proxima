@@ -2,6 +2,8 @@ package account
 
 import (
 	"context"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
 	v1 "proxima/app/user/api/account/v1"
 	"proxima/app/user/api/pbentity"
 	"proxima/app/user/internal/logic/account"
@@ -25,7 +27,7 @@ func (*Controller) UserRegister(ctx context.Context, req *v1.UserRegisterReq) (r
 		Email:    req.Email,
 	})
 	if err != nil {
-		return nil, err
+		return nil, gerror.NewCode(gcode.New(10001, err.Error(), nil))
 	}
 	return &v1.UserRegisterRes{
 		Id: int32(id),
@@ -33,12 +35,14 @@ func (*Controller) UserRegister(ctx context.Context, req *v1.UserRegisterReq) (r
 }
 
 func (*Controller) UserLogin(ctx context.Context, req *v1.UserLoginReq) (res *v1.UserLoginRes, err error) {
-	token, err := account.Login(ctx, req.Username, req.Password)
+	id, uuid, token, err := account.Login(ctx, req.Username, req.Password)
 
 	if err != nil {
-		return nil, err
+		return nil, gerror.NewCode(gcode.New(10000, err.Error(), nil))
 	}
 	return &v1.UserLoginRes{
+		Id:    id,
+		Uuid:  uuid,
 		Token: token,
 	}, nil
 }

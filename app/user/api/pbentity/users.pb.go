@@ -33,9 +33,10 @@ type Users struct {
 	Username      string                 `protobuf:"bytes,2,opt,name=Username,proto3" json:"Username,omitempty" v:"required"`   //v:required
 	Password      string                 `protobuf:"bytes,3,opt,name=Password,proto3" json:"Password,omitempty" v:"required"`   //v:required
 	Email         string                 `protobuf:"bytes,4,opt,name=Email,proto3" json:"Email,omitempty" v:"required"`         //v:required
-	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=CreatedAt,proto3" json:"CreatedAt,omitempty" v:"required"` //v:required
-	UpdatedAt     *timestamppb.Timestamp `protobuf:"bytes,6,opt,name=UpdatedAt,proto3" json:"UpdatedAt,omitempty" v:"required"` //v:required
-	DeletedAt     *timestamppb.Timestamp `protobuf:"bytes,7,opt,name=DeletedAt,proto3" json:"DeletedAt,omitempty" v:"required"` //v:required
+	Uuid          string                 `protobuf:"bytes,5,opt,name=Uuid,proto3" json:"Uuid,omitempty" v:"required"`           //v:required
+	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,6,opt,name=CreatedAt,proto3" json:"CreatedAt,omitempty" v:"required"` //v:required
+	UpdatedAt     *timestamppb.Timestamp `protobuf:"bytes,7,opt,name=UpdatedAt,proto3" json:"UpdatedAt,omitempty" v:"required"` //v:required
+	DeletedAt     *timestamppb.Timestamp `protobuf:"bytes,8,opt,name=DeletedAt,proto3" json:"DeletedAt,omitempty" v:"required"` //v:required
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -98,6 +99,13 @@ func (x *Users) GetEmail() string {
 	return ""
 }
 
+func (x *Users) GetUuid() string {
+	if x != nil {
+		return x.Uuid
+	}
+	return ""
+}
+
 func (x *Users) GetCreatedAt() *timestamppb.Timestamp {
 	if x != nil {
 		return x.CreatedAt
@@ -123,15 +131,16 @@ var File_pbentity_users_proto protoreflect.FileDescriptor
 
 const file_pbentity_users_proto_rawDesc = "" +
 	"\n" +
-	"\x14pbentity/users.proto\x12\bpbentity\x1a\x1fgoogle/protobuf/timestamp.proto\"\x93\x02\n" +
+	"\x14pbentity/users.proto\x12\bpbentity\x1a\x1fgoogle/protobuf/timestamp.proto\"\xa7\x02\n" +
 	"\x05Users\x12\x0e\n" +
 	"\x02Id\x18\x01 \x01(\rR\x02Id\x12\x1a\n" +
 	"\bUsername\x18\x02 \x01(\tR\bUsername\x12\x1a\n" +
 	"\bPassword\x18\x03 \x01(\tR\bPassword\x12\x14\n" +
-	"\x05Email\x18\x04 \x01(\tR\x05Email\x128\n" +
-	"\tCreatedAt\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\tCreatedAt\x128\n" +
-	"\tUpdatedAt\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\tUpdatedAt\x128\n" +
-	"\tDeletedAt\x18\a \x01(\v2\x1a.google.protobuf.TimestampR\tDeletedAtB\x1fZ\x1dproxima/app/user/api/pbentityb\x06proto3"
+	"\x05Email\x18\x04 \x01(\tR\x05Email\x12\x12\n" +
+	"\x04Uuid\x18\x05 \x01(\tR\x04Uuid\x128\n" +
+	"\tCreatedAt\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\tCreatedAt\x128\n" +
+	"\tUpdatedAt\x18\a \x01(\v2\x1a.google.protobuf.TimestampR\tUpdatedAt\x128\n" +
+	"\tDeletedAt\x18\b \x01(\v2\x1a.google.protobuf.TimestampR\tDeletedAtB\x1fZ\x1dproxima/app/user/api/pbentityb\x06proto3"
 
 var (
 	file_pbentity_users_proto_rawDescOnce sync.Once

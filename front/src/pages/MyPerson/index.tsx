@@ -2,13 +2,32 @@ import { Avatar, Button, Card, message, Col, Row } from "antd";
 import "./style.css"
 import { HeartFilled, LogoutOutlined, UserOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from 'react-router-dom';
+import { getUserInfo, logout, RegisterParams } from "../../api/login";
+import { useAuth } from "../../auth/AuthContext";
+import { useEffect, useState } from "react";
 export const MyPerson: React.FC = () => {
+  const [username,setUsername]=useState('')
   const navigate = useNavigate();
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    message.success('退出登录成功');
-    navigate('/');
+  const { logout: authLogout } = useAuth();
+  const handleLogout = async() => {
+    const response =await logout();
+    if(response.data.logout){
+      authLogout(); // 使用AuthContext的logout方法，它会同时清除localStorage和更新状态
+      message.success('退出登录成功');
+      navigate('/');
+    }
   };
+  
+  useEffect(()=>{
+    const getUserMessage=async()=>{
+    const userInfo=await getUserInfo()
+    setUsername(userInfo.data.username)
+  }
+  getUserMessage()
+  })
+  
+ 
+  
   return (
     <div className="myperson-main">
       <Card className="myperson-card">
@@ -19,7 +38,7 @@ export const MyPerson: React.FC = () => {
               <Col span={24}>
                 <div className="myperson-item">
                   <Avatar size={80} icon={<UserOutlined />} />
-                  <span style={{ marginLeft: 10 }} >用户名：lingbe32131231231</span>
+                  <span style={{ marginLeft: 10 }} >用户名：{username}</span>
                 </div>
               </Col>
 

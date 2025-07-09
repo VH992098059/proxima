@@ -8,6 +8,8 @@ type LoginReq struct {
 	Password string `json:"password" v:"required|length:6,16"`
 }
 type LoginRes struct {
+	Id    string `json:"id"`
+	Uuid  string `json:"uuid"`
 	Token string `json:"token" dc:"在需要鉴权的接口中header加入Authorization: token"`
 }
 type RegisterReq struct {

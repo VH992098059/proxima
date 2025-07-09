@@ -181,6 +181,8 @@ func (x *UserLoginReq) GetPassword() string {
 type UserLoginRes struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Token         string                 `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	Id            string                 `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
+	Uuid          string                 `protobuf:"bytes,3,opt,name=uuid,proto3" json:"uuid,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -222,6 +224,20 @@ func (x *UserLoginRes) GetToken() string {
 	return ""
 }
 
+func (x *UserLoginRes) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *UserLoginRes) GetUuid() string {
+	if x != nil {
+		return x.Uuid
+	}
+	return ""
+}
+
 var File_account_v1_account_proto protoreflect.FileDescriptor
 
 const file_account_v1_account_proto_rawDesc = "" +
@@ -236,9 +252,11 @@ const file_account_v1_account_proto_rawDesc = "" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\"F\n" +
 	"\fUserLoginReq\x12\x1a\n" +
 	"\busername\x18\x01 \x01(\tR\busername\x12\x1a\n" +
-	"\bpassword\x18\x02 \x01(\tR\bpassword\"$\n" +
+	"\bpassword\x18\x02 \x01(\tR\bpassword\"H\n" +
 	"\fUserLoginRes\x12\x14\n" +
-	"\x05token\x18\x01 \x01(\tR\x05token2\x98\x01\n" +
+	"\x05token\x18\x01 \x01(\tR\x05token\x12\x0e\n" +
+	"\x02id\x18\x02 \x01(\tR\x02id\x12\x12\n" +
+	"\x04uuid\x18\x03 \x01(\tR\x04uuid2\x98\x01\n" +
 	"\aAccount\x12J\n" +
 	"\fUserRegister\x12\x1b.account.v1.UserRegisterReq\x1a\x1b.account.v1.UserRegisterRes\"\x00\x12A\n" +
 	"\tUserLogin\x12\x18.account.v1.UserLoginReq\x1a\x18.account.v1.UserLoginRes\"\x00B!Z\x1fproxima/app/user/api/account/v1b\x06proto3"

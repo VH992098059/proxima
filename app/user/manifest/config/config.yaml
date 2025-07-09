@@ -128,7 +128,7 @@ grpc:
   address:          ":32001"
 database:
   default:
-    link: "mysql:user:770880520@tcp(116.62.42.164:3306)/user"
+    link: "mysql:user:770880520@tcp(116.62.42.164:3306)/user?loc=Asia%2FShanghai"
     debug: true
 redis:
   default:

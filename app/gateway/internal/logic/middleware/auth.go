@@ -41,7 +41,7 @@ func Auth(r *ghttp.Request) {
 	userKey := fmt.Sprintf("user:%s", claims["Username"].(string))
 	//验证JWT是否过期
 	if err != nil || !token.Valid {
-		r.Response.WriteJson("验证已过期，请重新登录")
+		r.Response.WriteJsonExit(ghttp.DefaultHandlerResponse{Code: 401, Message: "验证已过期，请重新登录", Data: nil})
 		r.Exit()
 		return
 	}

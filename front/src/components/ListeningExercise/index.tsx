@@ -100,47 +100,23 @@ const ListeningExercise: React.FC<ListeningExerciseProps> = ({
     <Card className="listening-exercise-card">
       <Title level={4}>听力练习</Title>
       <div className="exercise-content" style={heightStyle}>
-        <Paragraph className="sentence">{sentence}</Paragraph>
-        <Paragraph className="translation">{translation}</Paragraph>
-      </div>
-      <div className="exercise-controls">
-        <Button
-          type="primary"
-          icon={<SoundOutlined />}
-          onClick={playAudio}
-          loading={isPlaying}
-        >
-          播放原音
-        </Button>
-        <Button
-          type="primary"
-          icon={<AudioOutlined />}
-          onClick={startRecording}
-          loading={isRecording}
-          danger
-        >
-          开始跟读
-        </Button>
-        {progress > 0 && (
-          <div className="progress-container">
-            <Progress percent={progress} />
-            {score !== null && (
-              <div className="score-display">
-                <Tag color={score >= 90 ? 'success' : score >= 80 ? 'processing' : 'warning'}>
-                  发音评分：{score}分
-                </Tag>
-              </div>
-            )}
-          </div>
-        )}
-        <Button
-          type="default"
-          icon={<CheckOutlined />}
-          onClick={onNext}
-          className="next-btn"
-        >
-          下一句
-        </Button>
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '100%',
+          color: '#999',
+          fontSize: '18px'
+        }}>
+          <Title level={3} style={{ color: '#999', marginBottom: '16px' }}>🚧</Title>
+          <Paragraph style={{ color: '#999', fontSize: '16px', textAlign: 'center' }}>
+            听力练习功能暂未开发
+          </Paragraph>
+          <Paragraph style={{ color: '#ccc', fontSize: '14px', textAlign: 'center' }}>
+            敬请期待后续版本更新
+          </Paragraph>
+        </div>
       </div>
     </Card>
   );

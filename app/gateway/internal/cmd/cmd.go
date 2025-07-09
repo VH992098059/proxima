@@ -5,6 +5,8 @@ import (
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/os/gcmd"
+	"proxima/app/gateway/internal/controller/check_jwt"
+	model_sse2 "proxima/app/gateway/internal/controller/model_sse"
 	"proxima/app/gateway/internal/controller/user"
 	"proxima/app/gateway/internal/controller/user_edit_delete"
 	"proxima/app/gateway/internal/controller/user_logout"
@@ -21,8 +23,19 @@ var (
 		Brief: "start http gateway server",
 		Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {
 			s := g.Server()
+			//是否允许跨域操作
+			s.Use(func(r *ghttp.Request) {
+				r.Response.CORSDefault()
+				r.Middleware.Next()
+			})
 			s.Group("/gateway", func(group *ghttp.RouterGroup) {
 				group.Middleware(ghttp.MiddlewareHandlerResponse)
+				group.Group("/", func(group *ghttp.RouterGroup) {
+					group.Bind(
+						check_jwt.NewV1(),
+					)
+				})
+
 				//用户登录注册网关
 				group.Bind(
 					user.NewV1(),
@@ -33,6 +46,9 @@ var (
 				group.Bind(
 					user_edit_delete.NewV1(),
 					user_logout.NewV1(),
+				)
+				group.Bind(
+					model_sse2.NewV1(),
 				)
 				//用户信息网关
 				group.Group("/msg", func(group *ghttp.RouterGroup) {

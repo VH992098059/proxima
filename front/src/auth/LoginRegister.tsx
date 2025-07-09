@@ -1,26 +1,52 @@
 import React, { useState } from 'react';
 import { Tabs, Form, Input, Button, message, Card } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { Navigate, replace, useNavigate } from 'react-router-dom';
+import { UserOutlined, LockOutlined, SendOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
+import { login, register, LoginParams, RegisterParams, LoginResponse, RegisterResponse } from '../api/login';
+import { useAuth } from './AuthContext';
 
 const { TabPane } = Tabs;
-
 const LoginRegister: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [registerForm] = Form.useForm();//用于注册表单
+  const { login: authLogin } = useAuth();
 
-  const onFinish = (values: any, type: 'login' | 'register') => {
+  const onFinish = async (values: LoginParams | RegisterParams, type: 'login' | 'register') => {
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
+    try {
       if (type === 'login') {
-        localStorage.setItem('token', 'user-token');
-        message.success('登录成功');
-        navigate('/',{replace:true})
+        const response:LoginResponse = await login(values as LoginParams);
+        if (response.code){
+          message.warning(response.message)
+          return
+        }else if (response.data.token) {
+          localStorage.setItem('token', response.data.token);
+          authLogin(); // 更新AuthContext的认证状态
+          message.success('登录成功');
+          navigate('/', { replace: true });
+        }
       } else {
-        message.success('注册成功');
+        const response:RegisterResponse = await register(values as RegisterParams);
+        if (response.code===10001){
+          message.warning(response.message)
+          return
+        }
+        else if (response.data.id) {
+          message.success('注册成功');
+          registerForm.resetFields();//注册成功后重置表单
+          // 切换到登录标签页
+          const loginTab = document.querySelector('.ant-tabs-tab[data-node-key="login"]') as HTMLElement;
+          if (loginTab) {
+            loginTab.click();
+          }
+        }
       }
-    }, 1000);
+    } catch (error: any) {
+      message.error(error.message || error.response?.data?.message || '操作失败，请重试');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -31,10 +57,22 @@ const LoginRegister: React.FC = () => {
         <Tabs defaultActiveKey="login" centered>
           <TabPane tab="登录" key="login">
             <Form name="login" onFinish={v => onFinish(v, 'login')}>
-              <Form.Item name="username" rules={[{ required: true, message: '请输入用户名' }]}>  
+              <Form.Item 
+                name="username" 
+                rules={[
+                  { required: true, message: '请输入用户名' },
+                  { min: 6, message: '用户名长度不能少于6位' }
+                ]}
+              >  
                 <Input prefix={<UserOutlined />} placeholder="用户名" />
               </Form.Item>
-              <Form.Item name="password" rules={[{ required: true, message: '请输入密码' }]}>  
+              <Form.Item 
+                name="password" 
+                rules={[
+                  { required: true, message: '请输入密码' },
+                  { min: 6, message: '密码长度不能少于6位' }
+                ]}
+              >  
                 <Input.Password prefix={<LockOutlined />} placeholder="密码" />
               </Form.Item>
               <Form.Item>
@@ -43,23 +81,48 @@ const LoginRegister: React.FC = () => {
             </Form>
           </TabPane>
           <TabPane tab="注册" key="register">
-            <Form name="register" onFinish={v => onFinish(v, 'register')}>
-              <Form.Item name="username" rules={[{ required: true, message: '请输入用户名' }]}>  
+            <Form form={registerForm} name="register" onFinish={v => onFinish(v, 'register')}>
+              <Form.Item 
+                name="username" 
+                rules={[
+                  { required: true, message: '请输入用户名' },
+                  { min: 6, message: '用户名长度不能少于6位' }
+                ]}
+              >  
                 <Input prefix={<UserOutlined />} placeholder="用户名" />
               </Form.Item>
-              <Form.Item name="password" rules={[{ required: true, message: '请输入密码' }]}>  
+              <Form.Item 
+                name="email" 
+                rules={[
+                  { required: true, message: '请输入邮箱' },
+                  { type: 'email', message: '请输入有效的邮箱地址' }
+                ]}
+              >  
+                <Input prefix={<SendOutlined />} placeholder="邮箱" />
+              </Form.Item>
+              <Form.Item 
+                name="password" 
+                rules={[
+                  { required: true, message: '请输入密码' },
+                  { min: 6, message: '密码长度不能少于6位' }
+                ]}
+              >  
                 <Input.Password prefix={<LockOutlined />} placeholder="密码" />
               </Form.Item>
-              <Form.Item name="confirm" dependencies={["password"]} rules={[
-                { required: true, message: '请确认密码' },
-                ({ getFieldValue }) => ({
-                  validator(_, value) {
-                    if (!value || getFieldValue('password') === value) {
-                      return Promise.resolve();
-                    }
-                    return Promise.reject(new Error('两次输入的密码不一致'));
-                  },
-                }),
+              <Form.Item 
+                name="confirm" 
+                dependencies={["password"]} 
+                rules={[
+                  { required: true, message: '请确认密码' },
+                  { min: 6, message: '确认密码长度不能少于6位' },
+                  ({ getFieldValue }) => ({
+                    validator(_, value) {
+                      if (!value || getFieldValue('password') === value) {
+                        return Promise.resolve();
+                      }
+                      return Promise.reject(new Error('两次输入的密码不一致'));
+                    },
+                  }),
               ]}>
                 <Input.Password prefix={<LockOutlined />} placeholder="确认密码" />
               </Form.Item>

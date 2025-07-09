@@ -12,7 +12,6 @@ import (
 
 func main() {
 	var ctx = gctx.New()
-
 	conf, err := g.Cfg("etcd").Get(ctx, "etcd.address")
 	if err != nil {
 		panic(err)

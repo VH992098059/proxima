@@ -82,18 +82,28 @@ const WordLearning: React.FC = () => {
   }>({ totalWords: mockWords.length, learnedWords: 0, lastStudyDate: new Date().toISOString() });
 
   const handleNext = () => {
-    if (currentIndex < mockWords.length - 1) {
-      setCurrentIndex(prev => prev + 1);
-      const newProgress = Math.floor(((currentIndex + 2) / mockWords.length) * 100);
+    if (currentIndex < mockWords.length - 1) { // 如果当前不是最后一个单词
+      const nextShowingIndex = currentIndex + 1; // 这是下一个要显示的单词的索引
+      setCurrentIndex(nextShowingIndex);
+
+      // 此时，我们完成了 nextShowingIndex 个单词 (因为索引从0开始)
+      const numberOfWordsCompleted = nextShowingIndex;
+
+      const newProgress = Math.floor((numberOfWordsCompleted / mockWords.length) * 100);
       setProgress(newProgress);
       setLearningHistory(prev => ({
         ...prev,
-        learnedWords: currentIndex + 2,
+        learnedWords: numberOfWordsCompleted,
         lastStudyDate: new Date().toISOString(),
       }));
-    } else {
+    } else { // 这是点击“下一个”并且当前是最后一个单词的情况，意味着所有单词都学习完了
+      setProgress(100); // 确保进度是100%
+      setLearningHistory(prev => ({
+        ...prev,
+        learnedWords: mockWords.length, // 确保学习历史记录中的已学习单词数是总数
+        lastStudyDate: new Date().toISOString(),
+      }));
       message.success('恭喜你完成本组单词学习！');
-      // 保存学习记录到本地存储
       localStorage.setItem('wordLearningHistory', JSON.stringify({
         totalWords: mockWords.length,
         learnedWords: mockWords.length,

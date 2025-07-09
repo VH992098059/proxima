@@ -68,7 +68,6 @@ func CheckBlackTokens(ctx context.Context, userKey, token string) (bool, error) 
 	if err != nil {
 		return false, err
 	}
-	log.Println("redis黑名单：", value.String())
 	return value.String() == token, nil
 }
 

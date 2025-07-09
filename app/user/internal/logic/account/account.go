@@ -2,8 +2,6 @@ package account
 
 import (
 	"context"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/golang-jwt/jwt/v5"
 	"log"
 	"proxima/app/user/api/pbentity"
 	"proxima/app/user/internal/dao"
@@ -11,7 +9,13 @@ import (
 	"proxima/app/user/utility"
 	utility3 "proxima/utility"
 	"proxima/utility/consts"
+	"strconv"
+	"strings"
 	"time"
+
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/golang-jwt/jwt/v5"
+	"github.com/google/uuid"
 )
 
 type jwtClaims struct {
@@ -21,14 +25,14 @@ type jwtClaims struct {
 }
 
 func Register(ctx context.Context, in *pbentity.Users) (id int, err error) {
-	isExistUser, err := dao.Users.Ctx(ctx).Where("username=?", in.Username).Count()
+	isExistUser, err := dao.Users.Ctx(ctx).Where("username", in.Username).Count()
 	if err != nil {
 		return 0, err
 	}
 	if isExistUser > 0 {
 		return -1, gerror.New("用户已存在")
 	}
-	isExistEmail, err := dao.Users.Ctx(ctx).Where("email=?", in.Email).Count()
+	isExistEmail, err := dao.Users.Ctx(ctx).Where("email", in.Email).Count()
 	if err != nil {
 		return 0, err
 	}
@@ -36,24 +40,30 @@ func Register(ctx context.Context, in *pbentity.Users) (id int, err error) {
 		return -1, gerror.New("邮箱已存在")
 	}
 	encryptPassword, _ := utility.Encrypt(in.Password)
-	getId, err := dao.Users.Ctx(ctx).Data(pbentity.Users{Username: in.Username, Email: in.Email, Password: encryptPassword}).InsertAndGetId()
+	uuidUser := strings.ReplaceAll(uuid.New().String(), "-", "")
+	getId, err := dao.Users.Ctx(ctx).Data(pbentity.Users{
+		Username: in.Username,
+		Email:    in.Email,
+		Password: encryptPassword,
+		Uuid:     uuidUser,
+	}).InsertAndGetId()
 	if err != nil {
 		return 0, err
 	}
 	return int(getId), nil
 }
 
-func Login(ctx context.Context, username, password string) (token string, err error) {
+func Login(ctx context.Context, username, password string) (id, uuid, token string, err error) {
 	var user entity.Users
 	if username != "" {
-		err = dao.Users.Ctx(ctx).Fields("id", "username", "password", "email").Where("username", username).Scan(&user)
+		err = dao.Users.Ctx(ctx).Fields("id", "uuid", "username", "password", "email").Where("username", username).Scan(&user)
 		if err != nil {
-			return "", gerror.New("用户名不存在")
+			return "", "", "", gerror.New("用户名不存在")
 		}
 	}
 	passwordComparison := utility.Verify(password, user.Password)
 	if !passwordComparison {
-		return "", gerror.New("用户名或密码错误")
+		return "", "", "", gerror.New("用户名或密码错误")
 	}
 
 	us := &jwtClaims{
@@ -67,13 +77,13 @@ func Login(ctx context.Context, username, password string) (token string, err er
 	signedString, err := jwt.NewWithClaims(jwt.SigningMethodHS512, us).SignedString([]byte(consts.JwtKey))
 	if err != nil {
 		log.Println(err)
-		return "", err
+		return "", "", "", err
 	}
 	//存储redis
-	err = utility3.SetJWT(ctx, user.Username, signedString, 3600*24)
+	err = utility3.SetJWT(ctx, user.Username, signedString, 3600*24) //设置24小时
 	if err != nil {
 		log.Println("出错啦！")
-		return "", err
+		return "", "", "", gerror.New("缓存存储失败！")
 	}
-	return signedString, nil
+	return strconv.Itoa(int(user.Id)), user.Uuid, signedString, nil
 }

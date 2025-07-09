@@ -26,7 +26,7 @@ interface MainLayoutProps {
  * 
  * @returns {JSX.Element} 返回渲染的布局组件
  */
-const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
+const MainLayout: React.FC<MainLayoutProps> = ({}) => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -34,10 +34,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
 
   return (
     <div className="main-layout">
-      {/* <TransitionGroup>
-        <div className="main-content">{children}</div>
-        
-      </TransitionGroup> */}
       <div className="main-content"><Outlet /></div>
       <div className="navigation-bar">
         <Button

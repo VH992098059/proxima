@@ -15,7 +15,9 @@ message Users {
     string                    Username = 2; //v:required
     string                    Password = 3; //v:required
     string                    Email    = 4; //v:required
-    google.protobuf.Timestamp CreatedAt = 5; //v:required
-    google.protobuf.Timestamp UpdatedAt = 6; //v:required
-    google.protobuf.Timestamp DeletedAt = 7; //v:required
+    string                    Uuid     = 5; //v:required
+    google.protobuf.Timestamp CreatedAt = 6; //v:required
+    google.protobuf.Timestamp UpdatedAt = 7; //v:required
+    google.protobuf.Timestamp DeletedAt = 8; //v:required
+
 }

@@ -1,0 +1,95 @@
+version: '3.8'
+services:
+  etcd:
+    image: quay.io/coreos/etcd:v3.5.21
+    environment:
+        - ETCD_NAME=etcd0
+        - ETCD_DATA_DIR=/etcd-data
+        - ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379
+        - ETCD_ADVERTISE_CLIENT_URLS=http://etcd:2379
+        - ETCD_LISTEN_PEER_URLS=http://0.0.0.0:2380
+        - ETCD_INITIAL_ADVERTISE_PEER_URLS=http://etcd:2380
+        - ETCD_INITIAL_CLUSTER=etcd0=http://etcd:2380
+        - ETCD_INITIAL_CLUSTER_TOKEN=etcd-cluster
+        - ETCD_INITIAL_CLUSTER_STATE=new
+    ports:
+      - "2379:2379"
+      - "2380:2380"
+    volumes:
+      - etcd_data:/etcd-data
+  redis:
+    image: redis:7-alpine
+    command: redis-server --requirepass 123456
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+  mongodb:
+    image: mongo:7
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=123456
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+  
+  # 后端服务
+  user:
+    build:
+      context: .
+      dockerfile: app/user/Dockerfile
+    environment:
+      - GF_GERROR_BRIEF=true
+    depends_on:
+      - etcd
+      - redis
+      - mongodb
+    ports:
+      - "32002:32002"
+    volumes:
+      - ./log:/root/log
+  word:
+    build:
+      context: .
+      dockerfile: app/word/Dockerfile
+    environment:
+      - GF_GERROR_BRIEF=true
+    depends_on:
+      - etcd
+      - redis
+      - mongodb
+    ports:
+      - "32003:32003"
+    volumes:
+      - ./log:/root/log
+
+  gateway:
+    build:
+      context: .
+      dockerfile: app/gateway/Dockerfile
+    environment:
+      - GF_GERROR_BRIEF=true
+    depends_on:
+      - etcd
+      - redis
+      - user
+      - word
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./log:/root/log
+  # 前端服务
+  frontend:
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+    depends_on:
+      - gateway
+    ports:
+      - "80:80"
+
+volumes:
+  etcd_data:
+  redis_data:
+  mongodb_data:

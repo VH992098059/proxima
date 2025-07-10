@@ -17,22 +17,17 @@ const LoginRegister: React.FC = () => {
     try {
       if (type === 'login') {
         const response:LoginResponse = await login(values as LoginParams);
-        if (response.code){
-          message.warning(response.message)
-          return
-        }else if (response.data.token) {
+        if (response.code === 0 && response.data.token) {
           localStorage.setItem('token', response.data.token);
           authLogin(); // 更新AuthContext的认证状态
           message.success('登录成功');
           navigate('/', { replace: true });
+        } else {
+          message.warning(response.message || '登录失败');
         }
       } else {
         const response:RegisterResponse = await register(values as RegisterParams);
-        if (response.code===10001){
-          message.warning(response.message)
-          return
-        }
-        else if (response.data.id) {
+        if (response.code === 0 && response.data.id) {
           message.success('注册成功');
           registerForm.resetFields();//注册成功后重置表单
           // 切换到登录标签页
@@ -40,6 +35,8 @@ const LoginRegister: React.FC = () => {
           if (loginTab) {
             loginTab.click();
           }
+        } else {
+          message.warning(response.message || '注册失败');
         }
       }
     } catch (error: any) {

@@ -9,16 +9,12 @@ export interface LoginParams {
 }
 
 export interface LoginResponse {
-  token: any;
   code: number;
   message: string;
   data: {
+    id: string;
+    uuid: string;
     token: string;
-    user: {
-      id: number;
-      username: string;
-      email?: string;
-    };
   };
 }
 
@@ -32,12 +28,10 @@ export interface RegisterParams {
 }
 
 export interface RegisterResponse {
-  id: any;
   code: number;
   message: string;
   data: {
     id: number;
-    username: string;
   };
 }
 
@@ -48,8 +42,8 @@ export interface RegisterResponse {
  * @param {string} params.password - 密码
  * @returns {Promise<LoginResponse>} 返回登录响应，包含用户token和基本信息
  */
-export const login = (params: LoginParams) => {
-  return request.post<LoginResponse>('/gateway/users/login', params);
+export const login = (params: LoginParams): Promise<LoginResponse> => {
+  return request.post('/gateway/users/login', params);
 };
 
 /**
@@ -60,8 +54,8 @@ export const login = (params: LoginParams) => {
  * @param {string} [params.email] - 邮箱（可选）
  * @returns {Promise<RegisterResponse>} 返回注册响应，包含用户ID和用户名
  */
-export const register = (params: RegisterParams) => {
-  return request.post<RegisterResponse>('/gateway/users/register', params);
+export const register = (params: RegisterParams): Promise<RegisterResponse> => {
+  return request.post('/gateway/users/register', params);
 };
 
 /**

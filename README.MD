@@ -1,4 +1,4 @@
-# 灵比英语本 (Proxima English Learning)
+# 灵度英语本 (Proxima English Learning)
 
 一个现代化的英语学习应用，帮助用户高效学习英语单词、句子和听力，并通过AI技术提供个性化学习计划。
 
